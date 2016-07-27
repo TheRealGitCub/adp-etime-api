@@ -78,15 +78,32 @@
 	}
 
 	$sessionCookie = getAuth();
+	
+	$response = [
+		"status" => "FAILED",
+		"message" => "Please supply a method"
+	];
 
-	if ($_GET["method"] == "record-stamp") {
-		request("https://eet60.adp.com/wfc/applications/wtk/html/ess/timestamp-record.jsp",
+	if (isset($_GET["method"]) && $_GET["method"] == "record-stamp") {
+		$request = request("https://eet60.adp.com/wfc/applications/wtk/html/ess/timestamp-record.jsp",
 			$sessionCookie,
 			[ "transfer" => "" ]
 		);
+		
+		if ($request) {
+			$response = [
+				"status" => "OK"
+			];
+		}
+		else {
+			$response = [
+				"status" => "FAILED"
+			];
+		}
+		
 	}
-	if ($_GET["method"] == "view-timesheet") {
-		$sheet = request("https://eet60.adp.com/wfc/applications/mss/esstimecard.do",
+	if (isset($_GET["method"]) && $_GET["method"] == "view-timesheet") {
+		$request = request("https://eet60.adp.com/wfc/applications/mss/esstimecard.do",
 			$sessionCookie,
 			null, false
 		);
@@ -98,5 +115,8 @@
 		echo $html->find("table.Timecard",0)->outertext;
 
 	}
+	
+	header('Content-Type: application/json');
+	echo json_encode($response);
 
 ?>
