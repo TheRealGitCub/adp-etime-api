@@ -5,8 +5,8 @@ A small API for accessing certain function of ADP eTime.
 ## To-do List
 
 - [x] Clock In/Out
-	- [ ] Implement return message
-- [ ] View Timecard
+	- [x] Implement return message
+- [x] View Timecard
 	- [ ] Approve Timecard
 	- [ ] Check if clocked in and when
 	- [ ] Check for missed punches
