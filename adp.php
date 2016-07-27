@@ -76,7 +76,14 @@
 		return $authCookie;
 
 	}
-
+	
+	function tdClean($item) {
+		$item = str_replace("\n", "", $item);
+		$item = trim($item);
+		$item = str_replace("&nbsp;", "", $item);
+		return $item;
+	}
+	
 	$sessionCookie = getAuth();
 	
 	$response = [
@@ -110,10 +117,43 @@
 
 		// echo "<pre>" . htmlspecialchars($sheet) . "</pre>";
 
-		$html = str_get_html($sheet);
+		$html = str_get_html($request);
 
-		echo $html->find("table.Timecard",0)->outertext;
-
+		$rows = $html->find("table.Timecard",0)->find("tbody tr");
+		$shifts = [];
+		
+		foreach ($rows as $row) {
+			if ($row->find("td.Date",0)){
+				
+				$date = 		tdClean($row->find("td.Date",0)->plaintext);
+				
+				$timeIn = 		tdClean($row->find("td.InPunch", 0)->plaintext);
+				$timeOut = 		tdClean($row->find("td.OutPunch", 0)->plaintext);
+				
+				$shiftTotal = 	tdClean($row->find("td.ShiftTotal", 0)->plaintext);
+				$dayTotal = 	tdClean($row->find("td.DailyTotal",0)->plaintext);
+				
+				if ($timeIn != " " && $timeIn != "") {
+					$shifts[$date]["shifts"][] = [
+						"timeIn" => 		$timeIn,
+						"timeOut" => 		$timeOut,
+						"shiftTotal" => 	$shiftTotal,
+					];
+					
+					if ($dayTotal != "" && $dayTotal != " ") {
+						$shifts[$date]["dayTotal"] = $dayTotal;
+					}
+				}
+			}
+			
+		}
+		
+		$response = [
+			"total" => str_ireplace("Total:&nbsp;", "", $html->find("td.TotalsSummary",0)->plaintext),
+			"period" =>	trim($html->find(".CTDisplay",0)->plaintext),
+			"shifts" => $shifts
+		];
+		
 	}
 	
 	header('Content-Type: application/json');
