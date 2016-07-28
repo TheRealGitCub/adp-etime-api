@@ -109,7 +109,7 @@
 		}
 		
 	}
-	if (isset($_GET["method"]) && $_GET["method"] == "view-timesheet") {
+	if (isset($_GET["method"]) && $_GET["method"] == "view-timecard") {
 		$request = request("https://eet60.adp.com/wfc/applications/mss/esstimecard.do",
 			$sessionCookie,
 			null, false
