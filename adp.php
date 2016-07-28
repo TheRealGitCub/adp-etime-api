@@ -214,6 +214,38 @@
 		
 	}
 	
+	if (isset($_GET["method"]) && $_GET["method"] == "missed-punch") {
+		$request = request("https://eet60.adp.com/wfc/applications/mss/esstimecard.do",
+			$sessionCookie,
+			null, false
+		);
+		$html = str_get_html($request);
+		$rows = $html->find("table.Timecard",0)->find("tbody tr");
+		
+		$missedPunch = false;
+		$missedOn = null;
+		
+		foreach ($rows as $row) {
+			if ($row->find("td.Date",0) && $row->find("td div.MissedPunchException",0)){
+				$missedPunch = true;
+				$missedOn = $row->find("td.Date",0)->plaintext;
+			}
+		}
+		
+		if ($missedPunch) {
+			$response = [
+				"missedPunch" => true,
+				"missedOn" => $missedOn
+			];
+		}
+		else {
+			$response = [
+				"missedPunch" => false
+			];
+		}
+		
+	}
+	
 	header('Content-Type: application/json');
 	echo json_encode($response);
 
