@@ -76,16 +76,16 @@
 		return $authCookie;
 
 	}
-	
+
 	function tdClean($item) {
 		$item = str_replace("\n", "", $item);
 		$item = trim($item);
 		$item = str_replace("&nbsp;", "", $item);
 		return $item;
 	}
-	
+
 	$sessionCookie = getAuth();
-	
+
 	$response = [
 		"status" => "FAILED",
 		"message" => "Please supply a method"
@@ -96,7 +96,7 @@
 			$sessionCookie,
 			[ "transfer" => "" ]
 		);
-		
+
 		if ($request) {
 			$response = [
 				"status" => "OK"
@@ -107,7 +107,7 @@
 				"status" => "FAILED"
 			];
 		}
-		
+
 	}
 	if (isset($_GET["method"]) && $_GET["method"] == "view-timecard") {
 		$request = request("https://eet60.adp.com/wfc/applications/mss/esstimecard.do",
@@ -121,41 +121,41 @@
 
 		$rows = $html->find("table.Timecard",0)->find("tbody tr");
 		$shifts = [];
-		
+
 		foreach ($rows as $row) {
 			if ($row->find("td.Date",0)){
-				
+
 				$date = 		tdClean($row->find("td.Date",0)->plaintext);
-				
+
 				$timeIn = 		tdClean($row->find("td.InPunch", 0)->plaintext);
 				$timeOut = 		tdClean($row->find("td.OutPunch", 0)->plaintext);
-				
+
 				$shiftTotal = 	tdClean($row->find("td.ShiftTotal", 0)->plaintext);
 				$dayTotal = 	tdClean($row->find("td.DailyTotal",0)->plaintext);
-				
+
 				if ($timeIn != " " && $timeIn != "") {
 					$shifts[$date]["shifts"][] = [
 						"timeIn" => 		$timeIn,
 						"timeOut" => 		$timeOut,
 						"shiftTotal" => 	$shiftTotal,
 					];
-					
+
 					if ($dayTotal != "" && $dayTotal != " ") {
 						$shifts[$date]["dayTotal"] = $dayTotal;
 					}
 				}
 			}
-			
+
 		}
-		
+
 		$response = [
 			"total" => str_ireplace("Total:&nbsp;", "", $html->find("td.TotalsSummary",0)->plaintext),
 			"period" =>	trim($html->find(".CTDisplay",0)->plaintext),
 			"shifts" => $shifts
 		];
-		
+
 	}
-	
+
 	if (isset($_GET["method"]) && $_GET["method"] == "clocked-in") {
 		$request = request("https://eet60.adp.com/wfc/applications/mss/esstimecard.do",
 			$sessionCookie,
@@ -163,42 +163,42 @@
 		);
 		$html = str_get_html($request);
 		$rows = $html->find("table.Timecard",0)->find("tbody tr");
-		
+
 		$range = trim($html->find(".CTDisplay",0)->plaintext);
 		$range = explode(" - ", $range);
-		
+
 		$start = $range[0];
 		$start = explode("/", $start);
-		
+
 		$year = $start[2];
 		$now = time();
-		
+
 		$clockedIn = false;
-		
+
 		$lastTimeIn = null;
-		
+
 		foreach ($rows as $row) {
 			if ($row->find("td.Date",0)){
-			
+
 				$timeIn = 		tdClean($row->find("td.InPunch", 0)->plaintext);
 				$timeOut = 		tdClean($row->find("td.OutPunch", 0)->plaintext);
-				
+
 				$date = tdClean($row->find("td.Date",0)->plaintext) . "/" . $year;
 				$date = strtotime($date);
-				
+
 				if ( (($now - $date) <= 86400) && ($timeIn != " " && $timeIn != "") ) {
 					if ($timeOut == "" || $timeOut == " ") {
 						$clockedIn = true;
 						$lastTimeIn = $timeIn;
 						break;
 					}
-					
+
 				}
-				
+
 			}
-			
+
 		}
-		
+
 		if ($clockedIn) {
 			$response = [
 				"clockedIn" => true,
@@ -210,10 +210,10 @@
 				"clockedIn" => false
 			];
 		}
-		
-		
+
+
 	}
-	
+
 	if (isset($_GET["method"]) && $_GET["method"] == "missed-punch") {
 		$request = request("https://eet60.adp.com/wfc/applications/mss/esstimecard.do",
 			$sessionCookie,
@@ -221,17 +221,17 @@
 		);
 		$html = str_get_html($request);
 		$rows = $html->find("table.Timecard",0)->find("tbody tr");
-		
+
 		$missedPunch = false;
 		$missedOn = null;
-		
+
 		foreach ($rows as $row) {
 			if ($row->find("td.Date",0) && $row->find("td div.MissedPunchException",0)){
 				$missedPunch = true;
 				$missedOn = $row->find("td.Date",0)->plaintext;
 			}
 		}
-		
+
 		if ($missedPunch) {
 			$response = [
 				"missedPunch" => true,
@@ -243,7 +243,7 @@
 				"missedPunch" => false
 			];
 		}
-		
+
 	}
 
 
@@ -276,6 +276,8 @@
 			], false
 		);
 
+		#  @todo make this more detailed error checking that reads the request response
+		# 		to make sure ADP didn't yell at us
 		if ($request) {
 			$response = [
 				"status" => "OK"
