@@ -3,6 +3,7 @@
 A small API for accessing certain function of ADP eTime.  
 [![license](https://img.shields.io/github/license/therealgitcub/adp-etime-api.svg?maxAge=2592000)](https://github.com/TheRealGitCub/adp-etime-api/blob/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/therealgitcub/adp-etime-api.svg?maxAge=2592000)](https://github.com/therealgitcub/adp-etime-api/releases)
+[![GitHub tag](https://img.shields.io/github/tag/therealgitcub/adp-etime-api.svg?maxAge=2592000)](https://github.com/therealgitcub/adp-etime-api/releases)
 
 ## To-do List
 
