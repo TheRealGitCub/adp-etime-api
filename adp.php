@@ -156,6 +156,64 @@
 		
 	}
 	
+	if (isset($_GET["method"]) && $_GET["method"] == "clocked-in") {
+		$request = request("https://eet60.adp.com/wfc/applications/mss/esstimecard.do",
+			$sessionCookie,
+			null, false
+		);
+		$html = str_get_html($request);
+		$rows = $html->find("table.Timecard",0)->find("tbody tr");
+		
+		$range = trim($html->find(".CTDisplay",0)->plaintext);
+		$range = explode(" - ", $range);
+		
+		$start = $range[0];
+		$start = explode("/", $start);
+		
+		$year = $start[2];
+		$now = time();
+		
+		$clockedIn = false;
+		
+		$lastTimeIn = null;
+		
+		foreach ($rows as $row) {
+			if ($row->find("td.Date",0)){
+			
+				$timeIn = 		tdClean($row->find("td.InPunch", 0)->plaintext);
+				$timeOut = 		tdClean($row->find("td.OutPunch", 0)->plaintext);
+				
+				$date = tdClean($row->find("td.Date",0)->plaintext) . "/" . $year;
+				$date = strtotime($date);
+				
+				if ( (($now - $date) <= 86400) && ($timeIn != " " && $timeIn != "") ) {
+					if ($timeOut == "" || $timeOut == " ") {
+						$clockedIn = true;
+						$lastTimeIn = $timeIn;
+						break;
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+		if ($clockedIn) {
+			$response = [
+				"clockedIn" => true,
+				"at" => $lastTimeIn
+			];
+		}
+		else {
+			$response = [
+				"clockedIn" => false
+			];
+		}
+		
+		
+	}
+	
 	header('Content-Type: application/json');
 	echo json_encode($response);
 
