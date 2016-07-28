@@ -19,3 +19,12 @@ A small API for accessing certain function of ADP eTime.
 
 Requires [Simple HTML DOM](http://simplehtmldom.sourceforge.net/) to function.
 Path may need to be changed based on your setup. See `adp.php`
+
+```
+Software licensed under GNU GPL v3. ADP and Enterprise eTime are registered
+trademarks of ADP, LLC. ADP eTime API and Kobi Tate (TheRealGitCub) are NOT
+affiliated with ADP, LLC. This software is NOT associated with nor endorsed
+with ADP, LLC. Use of this API may violate ADP eTime terms and conditions.
+Developer assumes no responsibility for any repercussions from the use of
+the software. Use at your own risk.
+```
