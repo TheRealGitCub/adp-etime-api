@@ -245,7 +245,52 @@
 		}
 		
 	}
-	
+
+
+	if (isset($_GET["method"]) && $_GET["method"] == "approve-timecard") {
+
+		$timeframe = 1;
+
+		if ( !isset($_GET["begin"]) || !isset($_GET["begin"]) ) {
+			$response = [
+				"status" => "FAILED",
+				"message" => "Please provide a begin and end date for the timeframe."
+			];
+			goto end;
+		}
+
+		$begin = $_GET["begin"];
+		$end = $_GET["end"];
+
+		if (isset($_GET["timeframeId"])) {
+			$timeframe = $_GET["timeframeId"];
+		}
+
+		$request = request("https://eet60.adp.com/wfc/applications/mss/esstimecard.do",
+			$sessionCookie,
+			[
+				"com.kronos.wfc.ACTION" => "approve",
+				"timeframeId" => $timeframe,
+				"beginTimeframeDate" => $begin,
+				"endTimeframeDate" => $end
+			], false
+		);
+
+		if ($request) {
+			$response = [
+				"status" => "OK"
+			];
+		}
+		else {
+			$response = [
+				"status" => "FAILED",
+				"message" => "Something went wrong submitting the timecard approval form"
+			];
+		}
+
+	}
+
+	end:
 	header('Content-Type: application/json');
 	echo json_encode($response);
 
