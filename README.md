@@ -4,12 +4,13 @@ A small API for accessing certain function of ADP eTime.
 
 ## To-do List
 
-- [x] Clock In/Out
-	- [x] Implement return message
-- [x] View Timecard
-	- [ ] Approve Timecard
-	- [x] Check if clocked in and when
-	- [ ] Check for missed punches
+- [x] ~~Clock In/Out~~
+	- [x] ~~Implement return message~~
+- [x] ~~View Timecard~~
+	- [x] Approve Timecard (untested)
+		- [ ] Improve error checking 
+	- [x] ~~Check if clocked in and when~~
+	- [x] Check for missed punches (untested)
 
 ## Requirements
 
