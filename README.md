@@ -8,7 +8,7 @@ A small API for accessing certain function of ADP eTime.
 	- [x] Implement return message
 - [x] View Timecard
 	- [ ] Approve Timecard
-	- [ ] Check if clocked in and when
+	- [x] Check if clocked in and when
 	- [ ] Check for missed punches
 
 ## Requirements
