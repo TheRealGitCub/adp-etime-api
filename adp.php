@@ -90,6 +90,13 @@
 		"status" => "FAILED",
 		"message" => "Please supply a method"
 	];
+	
+	if (!$sessionCookie) {
+		$response = [
+			"status" => "FAILED",
+			"message" => "Error getting Authentication cookies"
+		];
+	}
 
 	if (isset($_GET["method"]) && $_GET["method"] == "record-stamp") {
 		$request = request("https://eet60.adp.com/wfc/applications/wtk/html/ess/timestamp-record.jsp",
@@ -109,6 +116,7 @@
 		}
 		
 	}
+
 	if (isset($_GET["method"]) && $_GET["method"] == "view-timesheet") {
 		$request = request("https://eet60.adp.com/wfc/applications/mss/esstimecard.do",
 			$sessionCookie,
