@@ -28,7 +28,7 @@ Path may need to be changed based on your setup. See `adp.php`
 | `record-stamp`      | Adds a new timestamp to the user's timecard  | `{status: "[OK/FAILED]" [, message: ""]}` |
 | `view-timecard`	  | Shows the user's timecard in JSON format | `{total: "5:00", period: ""7/30/2016 - 8/12/2016", shifts: [...]}` |
 | `clocked-in` 		  | Check if the user is clocked into eTime | `{"clockedIn":true,"at":"9:30AM"}` |
-| `missed-punch`	  | Check if the user has missed a punch in the current pay period |  `{"missedPunch":false}` |
+| `missed-punch`	  | **Untested Method**<br /> Check if the user has missed a punch in the current pay period |  `{"missedPunch":false}` |
 | `approve-timecard`  | **Untested Method**<br /> Submit the user's timecard for manager approval | `{status: "[OK/FAILED]" [, message: ""]}` |
 
 
