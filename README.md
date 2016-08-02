@@ -14,6 +14,7 @@ A small API for accessing certain function of ADP eTime.
 		- [ ] Improve error checking
 	- [x] ~~Check if clocked in and when~~
 	- [x] Check for missed punches (untested)
+- [ ] Bring up to JSON API standards
 
 ## Requirements
 
