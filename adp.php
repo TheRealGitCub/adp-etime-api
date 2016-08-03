@@ -90,7 +90,7 @@
 		"status" => "FAILED",
 		"message" => "Please supply a method"
 	];
-	
+
 	if (!$sessionCookie) {
 		$response = [
 			"status" => "FAILED",
@@ -157,6 +157,7 @@
 		}
 
 		$response = [
+			"status" => "OK",
 			"total" => str_ireplace("Total:&nbsp;", "", $html->find("td.TotalsSummary",0)->plaintext),
 			"period" =>	trim($html->find(".CTDisplay",0)->plaintext),
 			"shifts" => $shifts
@@ -209,12 +210,14 @@
 
 		if ($clockedIn) {
 			$response = [
+				"status" => "OK",
 				"clockedIn" => true,
 				"at" => $lastTimeIn
 			];
 		}
 		else {
 			$response = [
+				"status" => "OK",
 				"clockedIn" => false
 			];
 		}
@@ -242,12 +245,14 @@
 
 		if ($missedPunch) {
 			$response = [
+				"status" => "OK",
 				"missedPunch" => true,
 				"missedOn" => $missedOn
 			];
 		}
 		else {
 			$response = [
+				"status" => "OK",
 				"missedPunch" => false
 			];
 		}
