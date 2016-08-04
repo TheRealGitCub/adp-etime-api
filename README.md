@@ -5,15 +5,9 @@ A small API for accessing certain function of ADP eTime.
 [![GitHub release](https://img.shields.io/github/release/therealgitcub/adp-etime-api.svg?maxAge=2592000)](https://github.com/therealgitcub/adp-etime-api/releases)
 [![GitHub tag](https://img.shields.io/github/tag/therealgitcub/adp-etime-api.svg?maxAge=2592000)](https://github.com/therealgitcub/adp-etime-api/releases)
 
-## To-do List
+## Example Program
 
-- [x] ~~Clock In/Out~~
-	- [x] ~~Implement return message~~
-- [x] ~~View Timecard~~
-	- [x] Approve Timecard (untested)
-		- [ ] Improve error checking
-	- [x] ~~Check if clocked in and when~~
-	- [x] Check for missed punches (untested)
+Check out [simple-etime](http://github.com/therealgitcub/simple-etime) for a look at what can be done with this API. 
 
 ## Requirements
 
