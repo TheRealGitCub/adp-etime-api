@@ -26,7 +26,7 @@ Path may need to be changed based on your setup. See `adp.php`
 
 
 ```
-Software licensed under GNU GPL v3. ADP and Enterprise eTime are registered
+Software licensed under Apache v3. ADP and Enterprise eTime are registered
 trademarks of ADP, LLC. ADP eTime API and Kobi Tate (TheRealGitCub) are NOT
 affiliated with ADP, LLC. This software is NOT associated with nor endorsed
 by ADP, LLC. Use of this API may violate ADP eTime terms and conditions.
