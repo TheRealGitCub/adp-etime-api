@@ -28,6 +28,13 @@ Path may need to be changed based on your setup. See `adp.php`
 | `missed-punch`	  | **Untested Method**<br /> Check if the user has missed a punch in the current pay period |  `{"missedPunch":false}` |
 | `approve-timecard`  | **Untested Method**<br /> Submit the user's timecard for manager approval | `{status: "[OK/FAILED]" [, message: ""]}` |
 
+## Disclaimer
+ADP and Enterprise eTime are registered trademarks of ADP, LLC. ADP eTime 
+API and Kobi Tate (TheRealGitCub) are NOT affiliated with ADP, LLC. This 
+software is NOT associated with nor endorsed by ADP, LLC. Use of this API 
+may violate ADP eTime terms and conditions. Developer assumes no 
+responsibility for any repercussions from the use of the software. 
+Use at your own risk.
 
 ```
 Software licensed under Apache v2. ADP and Enterprise eTime are registered
