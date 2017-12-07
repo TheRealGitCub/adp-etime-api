@@ -5,6 +5,10 @@ A small API for accessing certain function of ADP eTime.
 [![GitHub release](https://img.shields.io/github/release/therealgitcub/adp-etime-api.svg?maxAge=2592000)](https://github.com/therealgitcub/adp-etime-api/releases)
 [![GitHub tag](https://img.shields.io/github/tag/therealgitcub/adp-etime-api.svg?maxAge=2592000)](https://github.com/therealgitcub/adp-etime-api/releases)
 
+> **No Longer Under Development** - My employer has switched over to PeopleSoft, and ADP eTime API
+is no longer being developed. Feel free to fork it and run with it as you please, that's the beauty
+of FOSS!
+
 ## Example Program
 
 Check out [simple-etime](http://github.com/therealgitcub/simple-etime) for a look at what can be done with this API. 
